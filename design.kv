@@ -1,0 +1,177 @@
+<LoginScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 10, 10
+            spacing: 10, 10
+            Label:
+                color: "blue"
+                font_size: "50sp"
+                font_name: "Roboto-Bold"
+                text: "Login"
+            TextInput:
+                id: username
+                border: 0, 0, 0, 4
+                hint_text: "Username"
+            TextInput:
+                id: password
+                border: 0, 0, 0, 4
+                password: True
+                hint_text: "Password"
+            RelativeLayout:
+                Button:
+                    text: "Login"
+                    size_hint: 0.3, 0.5
+                    pos_hint: {"center_x": 0.5, "center_y": 0.6}
+                    on_press: root.login(root.ids.username.text, root.ids.password.text)
+            Label:
+                id: wrong_cred
+                text: ""
+                color: "black"
+        GridLayout:
+            cols: 2
+            padding: 10, 10
+            spacing: 10, 10
+            size_hint: 0.2, 0.2
+            Button:
+                id: forgot_password_button
+                background_color: 1, 1, 1, 0
+                opacity: 1 if self.state == "normal" else 0.5
+                text: "Forgot Password"
+                color: "black"
+                on_press: root.forgot_password()
+            Button:
+                background_color: 1, 1, 1, 0
+                opacity: 1 if self.state == "normal" else 0.5
+                text: "Sign Up"
+                color: "black"
+                on_press: root.sign_up()
+<SignUpScreen>:
+    GridLayout:
+        cols: 1
+        padding: 10, 10
+        spacing: 20, 20
+        Label:
+            text: "Register"
+            color: "blue"
+            font_size: "50sp"
+            font_name: "Roboto-Bold"
+        TextInput:
+            id: username
+            border: 0, 0, 0, 4
+            hint_text: "Create Username"
+        TextInput:
+            border: 0, 0, 0, 4
+            id: password
+            hint_text: "Create Password"
+        TextInput:
+            id: email
+            border: 0, 0, 0, 4
+            hint_text: "Enter email"
+        RelativeLayout:
+            Button:
+                size_hint: 0.3, 0.5
+                pos_hint: {"center_x": 0.5, "center_y": 0.6}
+                text: "Register"
+                on_press: root.add_user(root.ids.username.text, root.ids.password.text, root.ids.email.text)
+<SuccessScreen>:
+    GridLayout:
+        cols: 1
+        padding: 10, 10
+        spacing: 10, 10
+        Label:
+            padding: 10, 10
+            text: "You are now registered !"
+            color: "blue"
+            font_size: "50sp"
+            font_name: "Roboto-Bold"
+        RelativeLayout:
+            size_hint: 0.3, 0.5
+            Button:
+                size_hint: 0.3, 0.5
+                pos_hint: {"center_x": 0.5, "center_y": 0.6}
+                text: "Log In"
+                on_press: root.main_page()
+
+<LoginScreenSuccess>:
+    GridLayout:
+        cols: 1
+        padding: 20, 20
+        spacing: 20, 20
+        RelativeLayout:
+            ImageButton:
+                source: "logout_hover.png" if self.hovered else "logout_nothover.png"
+                on_press: root.log_out()
+                size_hint: 0.35, 0.35
+                pos_hint: {"center_x": 0.90, "center_y": 0.8}
+        Label:
+            text: "Enter Feeling"
+            color: "blue"
+            font_size: "50sp"
+            font_name: "Roboto-Bold"
+        TextInput:
+            id: feeling
+            border: 0, 0, 0, 4
+            hint_text: "How do you feel?"
+        Button:
+            text: "Search Quote"
+            on_press: root.get_quote(root.ids.feeling.text)
+        ScrollView:
+            Label:
+                id: quotes
+                text: ""
+                color: "black"
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
+
+<ForgotPasswordScreen>:
+    GridLayout:
+        cols: 1
+        padding: 20, 20
+        spacing: 20, 20
+        RelativeLayout:
+            Label:
+                halign: "center"
+                pos_hint: {"center_x": 0.5, "center_y": 0.6}
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
+                text: "Get Login Info"
+                color: "blue"
+                font_size: "50sp"
+                font_name: "Roboto-Bold"
+        TextInput:
+            id: email
+            size_hint: 0.5, 0.5
+            border: 0, 0, 0, 4
+            hint_text: "Enter Email"
+        TextInput:
+            id: username
+            size_hint: 0.5, 0.5
+            border: 0, 0, 0, 4
+            hint_text: "Enter Username"
+        Label:
+            id: email_sent
+            text: ""
+            color: "black"
+        RelativeLayout:
+            Button:
+                size_hint: 0.3, 0.5
+                pos_hint: {"center_x": 0.5, "center_y": 0.6}
+                text: "Log In"
+                on_press: root.email_check(root.ids.email.text, root.ids.username.text)
+
+<RootWidget>:
+    LoginScreen:
+        name: "login_screen"
+    SignUpScreen:
+        name: "sign_up_screen"
+    ForgotPasswordScreen:
+        name: "forgot_password_screen"
+    SuccessScreen:
+        name: "success_screen"
+    LoginScreenSuccess:
+        name: "login_screen_success"
+
